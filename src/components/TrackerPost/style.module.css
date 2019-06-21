@@ -1,0 +1,21 @@
+.root {
+
+}
+
+.card {
+  display: flex;
+}
+
+.cardDetails {
+  flex: 1;
+}
+
+.cardMedia {
+  height: auto;
+  width: 20%;
+  margin-bottom: 50%;
+}
+
+.row {
+  margin: 16px auto;
+}
