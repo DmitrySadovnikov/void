@@ -20,3 +20,7 @@
 .row {
   margin: 16px auto;
 }
+
+.collapse {
+  flex: 1;
+}

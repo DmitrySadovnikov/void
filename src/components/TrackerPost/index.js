@@ -15,7 +15,6 @@ class TrackerPost extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      trackerPostId: props.trackerPostId,
       imageUrl: props.imageUrl,
       title: props.title,
       body: props.body,
@@ -29,7 +28,6 @@ class TrackerPost extends Component {
 
   render() {
     const {
-      trackerPostId,
       imageUrl,
       title,
       body,
@@ -39,14 +37,14 @@ class TrackerPost extends Component {
     return (
       <div className={cl(style.row)}>
         <Grid
+          container
           item
           className={cl(style.grid)}
-          key={trackerPostId}
           xs={12}
           md={12}
           spacing={2}
         >
-          <Collapse in={checked} collapsedHeight='230px'>
+          <Collapse in={checked} collapsedHeight='230px' className={cl(style.collapse)}>
             <CardActionArea component='a' onClick={this.handleCollapse}>
               <Card className={cl(style.card)}>
                 <div className={cl(style.cardDetails)}>

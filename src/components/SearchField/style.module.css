@@ -1,0 +1,22 @@
+.root {
+  min-height: 30vh;
+  align-items: center;
+}
+
+.paper {
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  width: 400px;
+  justify-content: center;
+  margin: auto;
+}
+
+.input {
+  margin-left: 8px;
+  flex: 1;
+}
+
+.iconButton {
+  padding: 10px;
+}
