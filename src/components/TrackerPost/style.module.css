@@ -11,9 +11,10 @@
 }
 
 .cardMedia {
-  height: auto;
-  width: 20%;
+  height: 230px;
+  width: 160px;
   margin-bottom: 50%;
+  opacity: .8;
 }
 
 .row {
