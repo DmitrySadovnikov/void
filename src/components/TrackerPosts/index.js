@@ -34,8 +34,6 @@ class TrackerPosts extends Component {
       <div className={cl(style.root)}>
         <Container>
           <SearchField onSearch={this.handleSearch}/>
-        </Container>
-        <Container>
           {
             (
               success && (

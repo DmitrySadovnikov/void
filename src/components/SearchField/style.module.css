@@ -1,5 +1,5 @@
 .root {
-  min-height: 30vh;
+  min-height: 40vh;
   align-items: center;
 }
 
@@ -7,7 +7,7 @@
   padding: 2px 4px;
   display: flex;
   align-items: center;
-  width: 400px;
+  width: 600px;
   justify-content: center;
   margin: auto;
 }
