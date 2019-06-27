@@ -1,5 +1,5 @@
 .root {
-
+  margin: 16px auto;
 }
 
 .card {
@@ -15,10 +15,6 @@
   width: 160px;
   margin-bottom: 50%;
   opacity: .8;
-}
-
-.row {
-  margin: 16px auto;
 }
 
 .collapse {

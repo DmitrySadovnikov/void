@@ -1,10 +1,12 @@
 import React from 'react'
-import TrackerPosts from './components/TrackerPosts/index'
+import TorrentPosts from './components/TorrentPosts/index'
+import Transfers from './components/Transfers/index'
 
 function App() {
   return (
     <div className='App'>
-      <TrackerPosts/>
+      <Transfers/>
+      <TorrentPosts/>
     </div>
   )
 }

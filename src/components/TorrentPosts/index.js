@@ -3,11 +3,11 @@ import cl from 'classnames'
 import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import style from './style.module.css'
-import TrackerPost from '../TrackerPost/index'
+import TorrentPost from '../TorrentPost/index'
 import Spinner from '../Spinner/index'
 import SearchField from '../SearchField/index'
 
-class TrackerPosts extends Component {
+class TorrentPosts extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -19,7 +19,7 @@ class TrackerPosts extends Component {
   handleSearch = (searchText) => {
     this.setState(() => ({ success: false }))
 
-    axios.get(`http://localhost:3000/web/v1/tracker_posts/search?search=${searchText}`, {
+    axios.get(`http://localhost:3000/web/v1/torrent_posts/search?search=${searchText}`, {
       method: 'GET',
     })
       .then((response) => {
@@ -39,8 +39,9 @@ class TrackerPosts extends Component {
               success && (
                 <div>
                   {collection.map((post) => (
-                    <TrackerPost
-                      key={post.tracker_post_id}
+                    <TorrentPost
+                      key={post.outer_id}
+                      id={post.id}
                       imageUrl={post.image_url}
                       title={post.title}
                       body={post.body}
@@ -56,4 +57,4 @@ class TrackerPosts extends Component {
   }
 }
 
-export default TrackerPosts
+export default TorrentPosts
