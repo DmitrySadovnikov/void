@@ -8,15 +8,18 @@
   display: flex;
   align-items: center;
   width: 600px;
+  height: 50px;
+  border-radius: 25px !important;
   justify-content: center;
   margin: auto;
 }
 
 .input {
-  margin-left: 8px;
+  margin-left: 20px;
   flex: 1;
 }
 
 .iconButton {
   padding: 10px;
+  margin-right: 10px !important;
 }

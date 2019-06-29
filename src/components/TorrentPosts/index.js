@@ -44,11 +44,11 @@ class TorrentPosts extends Component {
     return (
       <div className={cl(style.root)}>
         <Container>
-          <SearchField onSearch={this.handleSearch}/>
           {
             (
               success && (
                 <div>
+                  <SearchField onSearch={this.handleSearch}/>
                   {collection.map((post) => (
                     <div>
                       <TorrentPost
