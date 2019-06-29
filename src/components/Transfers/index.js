@@ -3,23 +3,20 @@ import cl from 'classnames'
 import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import style from './style.module.css'
-import TrackerPost from '../TrackerPost/index'
+import Transfer from '../Transfer/index'
 import Spinner from '../Spinner/index'
-import SearchField from '../SearchField/index'
 
-class TrackerPosts extends Component {
+class Transfers extends Component {
   constructor(props) {
     super(props)
     this.state = {
       collection: [],
-      success: true,
+      success: false,
     }
   }
 
-  handleSearch = (searchText) => {
-    this.setState(() => ({ success: false }))
-
-    axios.get(`http://localhost:3000/web/v1/tracker_posts/search?search=${searchText}`, {
+  componentDidMount() {
+    axios.get('http://localhost:3000/web/v1/transfers', {
       method: 'GET',
     })
       .then((response) => {
@@ -33,17 +30,19 @@ class TrackerPosts extends Component {
     return (
       <div className={cl(style.root)}>
         <Container>
-          <SearchField onSearch={this.handleSearch}/>
           {
             (
               success && (
                 <div>
-                  {collection.map((post) => (
-                    <TrackerPost
-                      key={post.tracker_post_id}
-                      imageUrl={post.image_url}
-                      title={post.title}
-                      body={post.body}
+                  {collection.map((transfer) => (
+                    <Transfer
+                      key={transfer.id}
+                      className={cl(style.row)}
+                      status={transfer.status}
+                      createdAt={transfer.created_at}
+                      torrentPost={transfer.torrent_post}
+                      torrentEntity={transfer.torrent_entity}
+                      cloudEntities={transfer.cloud_entities}
                     />
                   ))}
                 </div>
@@ -56,4 +55,4 @@ class TrackerPosts extends Component {
   }
 }
 
-export default TrackerPosts
+export default Transfers

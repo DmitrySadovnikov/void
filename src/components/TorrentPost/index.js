@@ -11,14 +11,16 @@ import Typography from '@material-ui/core/Typography'
 import Hidden from '@material-ui/core/Hidden'
 import style from './style.module.css'
 
-class TrackerPost extends Component {
+class TorrentPost extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: props.id,
       imageUrl: props.imageUrl,
       title: props.title,
       body: props.body,
-      checked: false,
+      torrentSize: props.torrentSize,
+      checked: false
     }
   }
 
@@ -32,10 +34,11 @@ class TrackerPost extends Component {
       title,
       body,
       checked,
+      torrentSize
     } = this.state
 
     return (
-      <div className={cl(style.row)}>
+      <div className={cl(style.root)}>
         <Grid
           container
           item
@@ -44,13 +47,17 @@ class TrackerPost extends Component {
           md={12}
           spacing={2}
         >
-          <Collapse in={checked} collapsedHeight='230px' className={cl(style.collapse)}>
+          <Collapse in={checked} collapsedHeight='230px'
+                    className={cl(style.collapse)}>
             <CardActionArea component='a' onClick={this.handleCollapse}>
               <Card className={cl(style.card)}>
                 <div className={cl(style.cardDetails)}>
                   <CardContent>
                     <Typography component='h2' variant='h5'>
                       {title}
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {torrentSize}
                     </Typography>
                     <Typography variant='subtitle1' paragraph>
                       <ReactMarkdown source={body}/>
@@ -73,4 +80,4 @@ class TrackerPost extends Component {
   }
 }
 
-export default TrackerPost
+export default TorrentPost
