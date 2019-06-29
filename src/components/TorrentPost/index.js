@@ -1,11 +1,9 @@
-import axios from 'axios'
 import cl from 'classnames'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Collapse from '@material-ui/core/Collapse'
-import Link from '@material-ui/core/Link'
 import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
 import Grid from '@material-ui/core/Grid'
@@ -21,22 +19,13 @@ class TorrentPost extends Component {
       imageUrl: props.imageUrl,
       title: props.title,
       body: props.body,
-      checked: false,
-      downloading: false
+      torrentSize: props.torrentSize,
+      checked: false
     }
   }
 
   handleCollapse = () => {
     this.setState((state) => ({ checked: !state.checked }))
-  }
-
-  handleDownload = () => {
-    axios.post(`http://localhost:3000/web/v1/transfers`, {
-      torrent_post_id: this.state.id,
-    })
-      .then((response) => {
-        this.setState({ downloading: true })
-      })
   }
 
   render() {
@@ -45,7 +34,7 @@ class TorrentPost extends Component {
       title,
       body,
       checked,
-      downloading
+      torrentSize
     } = this.state
 
     return (
@@ -67,13 +56,12 @@ class TorrentPost extends Component {
                     <Typography component='h2' variant='h5'>
                       {title}
                     </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
+                      {torrentSize}
+                    </Typography>
                     <Typography variant='subtitle1' paragraph>
                       <ReactMarkdown source={body}/>
                     </Typography>
-                    {(downloading && (<Typography>Downloading</Typography>)) ||
-                    <Link variant='subtitle1'
-                          href='#'
-                          onClick={this.handleDownload}>Download</Link>}
                   </CardContent>
                 </div>
                 <Hidden xsDown>

@@ -37,6 +37,7 @@ class Transfers extends Component {
                   {collection.map((transfer) => (
                     <Transfer
                       key={transfer.id}
+                      className={cl(style.row)}
                       status={transfer.status}
                       createdAt={transfer.created_at}
                       torrentPost={transfer.torrent_post}
