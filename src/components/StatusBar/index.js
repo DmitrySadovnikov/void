@@ -1,7 +1,7 @@
 import cl from 'classnames'
+import moment from 'moment'
 import React, { Component } from 'react'
 import style from './style.module.css'
-import moment from 'moment'
 
 class StatusBar extends Component {
   constructor(props) {

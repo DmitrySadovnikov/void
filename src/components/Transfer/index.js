@@ -1,15 +1,14 @@
 import cl from 'classnames'
+import Button from '@material-ui/core/Button'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import React, { Component } from 'react'
 import style from './style.module.css'
 import TorrentPost from '../TorrentPost/index'
 import StatusBar from '../StatusBar/index'
-import Button from '@material-ui/core/Button'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 
 class Transfer extends Component {
   constructor(props) {
     super(props)
-    console.log(props.cloudEntities)
     this.state = {
       status: props.status,
       createdAt: props.createdAt,
@@ -25,7 +24,6 @@ class Transfer extends Component {
       createdAt,
       torrentPost,
       cloudEntities,
-      torrentEntityName,
     } = this.state
 
     return (
@@ -38,9 +36,10 @@ class Transfer extends Component {
           torrentSize={torrentPost.torrent_size}
         />
         {
-          status === 'uploaded' ?
+          status === 'uploaded' ? (
             <Button
-              variant='contained' color='primary'
+              variant='contained'
+              color='primary'
               className={cl(style.button)}
               target='_blank'
               href={cloudEntities[0].cloud_file_url}
@@ -50,7 +49,7 @@ class Transfer extends Component {
                 send
               </CloudDownloadIcon>
             </Button>
-            : <StatusBar status={status} time={createdAt}/>
+          ) : <StatusBar status={status} time={createdAt}/>
         }
       </div>
     )

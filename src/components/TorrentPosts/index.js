@@ -1,13 +1,13 @@
 import axios from 'axios'
 import cl from 'classnames'
+import Button from '@material-ui/core/Button'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import style from './style.module.css'
 import TorrentPost from '../TorrentPost/index'
 import Spinner from '../Spinner/index'
 import SearchField from '../SearchField/index'
-import Button from '@material-ui/core/Button'
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
 class TorrentPosts extends Component {
   constructor(props) {
@@ -29,11 +29,9 @@ class TorrentPosts extends Component {
       })
   }
 
-  handleDownload = (torrent_post_id) => {
-    axios.post(`http://localhost:3000/web/v1/transfers`, {
-      torrent_post_id: torrent_post_id,
-    })
-      .then((response) => {
+  handleDownload = (torrentPostId) => {
+    axios.post('http://localhost:3000/web/v1/transfers', { torrent_post_id: torrentPostId })
+      .then(() => {
         this.setState({ downloading: true })
       })
   }
@@ -60,7 +58,8 @@ class TorrentPosts extends Component {
                         torrentSize={post.torrent_size}
                       />
                       <Button
-                        variant='contained' color='primary'
+                        variant='contained'
+                        color='primary'
                         className={cl(style.button)}
                         onClick={() => { this.handleDownload(post.id) }}
                       >
