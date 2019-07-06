@@ -20,7 +20,7 @@ class TorrentPost extends Component {
       title: props.title,
       body: props.body,
       torrentSize: props.torrentSize,
-      checked: false
+      checked: false,
     }
   }
 
@@ -34,7 +34,7 @@ class TorrentPost extends Component {
       title,
       body,
       checked,
-      torrentSize
+      torrentSize,
     } = this.state
 
     return (
@@ -47,8 +47,11 @@ class TorrentPost extends Component {
           md={12}
           spacing={2}
         >
-          <Collapse in={checked} collapsedHeight='230px'
-                    className={cl(style.collapse)}>
+          <Collapse
+            in={checked}
+            collapsedHeight='230px'
+            className={cl(style.collapse)}
+          >
             <CardActionArea component='a' onClick={this.handleCollapse}>
               <Card className={cl(style.card)}>
                 <div className={cl(style.cardDetails)}>
@@ -56,7 +59,7 @@ class TorrentPost extends Component {
                     <Typography component='h2' variant='h5'>
                       {title}
                     </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
+                    <Typography variant='subtitle1' color='textSecondary'>
                       {torrentSize}
                     </Typography>
                     <Typography variant='subtitle1' paragraph>
