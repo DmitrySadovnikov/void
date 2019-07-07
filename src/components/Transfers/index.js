@@ -1,31 +1,41 @@
-import axios from 'axios'
 import cl from 'classnames'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import style from './style.module.css'
 import Transfer from '../Transfer/index'
 import Spinner from '../Spinner/index'
+import * as transfersActions from '../../actions/transfersActions'
+
+const mapStateToProps = (state) => {
+  return {
+    collection: state.transfers.collection,
+    success: state.transfers.success,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    transfersActions: bindActionCreators(transfersActions, dispatch),
+  }
+}
 
 class Transfers extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      collection: [],
-      success: false,
-    }
+    this.state = {}
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:3000/web/v1/transfers', {
-      method: 'GET',
-    })
-      .then((response) => {
-        this.setState({ collection: response.data.collection, success: true })
-      })
+  componentWillMount() {
+    const { transfersActions: action } = this.props
+
+    action.fetchTransfers()
   }
 
   render() {
-    const { success, collection } = this.state
+    const { success, collection } = this.props
 
     return (
       <div className={cl(style.root)}>
@@ -55,4 +65,13 @@ class Transfers extends Component {
   }
 }
 
-export default Transfers
+Transfers.propTypes = {
+  transfersActions: PropTypes.object,
+  collection: PropTypes.array,
+  success: PropTypes.bool,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Transfers)
