@@ -1,5 +1,8 @@
 import axios from 'axios'
 import cl from 'classnames'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import React, { Component } from 'react'
@@ -8,6 +11,20 @@ import style from './style.module.css'
 import TorrentPost from '../TorrentPost/index'
 import Spinner from '../Spinner/index'
 import SearchField from '../SearchField/index'
+import * as torrentPostsActions from '../../actions/torrentPostsActions'
+
+const mapStateToProps = (state) => {
+  return {
+    collection: state.torrentPosts.collection,
+    success: state.torrentPosts.success,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    torrentPostsActions: bindActionCreators(torrentPostsActions, dispatch),
+  }
+}
 
 class TorrentPosts extends Component {
   constructor(props) {
@@ -19,14 +36,10 @@ class TorrentPosts extends Component {
   }
 
   handleSearch = (searchText) => {
-    this.setState(() => ({ success: false }))
+    const { torrentPostsActions: action } = this.props
 
-    axios.get(`http://localhost:3000/web/v1/torrent_posts/search?search=${searchText}`, {
-      method: 'GET',
-    })
-      .then((response) => {
-        this.setState({ collection: response.data.collection, success: true })
-      })
+    action.initSearchTorrentPosts()
+    action.searchTorrentPosts(searchText)
   }
 
   handleDownload = (torrentPostId) => {
@@ -37,7 +50,7 @@ class TorrentPosts extends Component {
   }
 
   render() {
-    const { success, collection } = this.state
+    const { success, collection } = this.props
 
     return (
       <div className={cl(style.root)}>
@@ -48,9 +61,8 @@ class TorrentPosts extends Component {
                 <div>
                   <SearchField onSearch={this.handleSearch}/>
                   {collection.map((post) => (
-                    <div>
+                    <div key={post.id}>
                       <TorrentPost
-                        key={post.outer_id}
                         id={post.id}
                         imageUrl={post.image_url}
                         title={post.title}
@@ -64,7 +76,8 @@ class TorrentPosts extends Component {
                         onClick={() => { this.handleDownload(post.id) }}
                       >
                         Send to Google Drive
-                        <CloudUploadIcon className={cl(style.rightIcon)}>
+                        <CloudUploadIcon
+                          className={cl(style.rightIcon)}>
                           send
                         </CloudUploadIcon>
                       </Button>
@@ -80,4 +93,13 @@ class TorrentPosts extends Component {
   }
 }
 
-export default TorrentPosts
+TorrentPosts.propTypes = {
+  torrentPostsActions: PropTypes.object,
+  collection: PropTypes.array,
+  success: PropTypes.bool,
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TorrentPosts)
