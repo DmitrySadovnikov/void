@@ -1,4 +1,3 @@
-import axios from 'axios'
 import cl from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -43,10 +42,9 @@ class TorrentPosts extends Component {
   }
 
   handleDownload = (torrentPostId) => {
-    axios.post('http://localhost:3000/web/v1/transfers', { torrent_post_id: torrentPostId })
-      .then(() => {
-        this.setState({ downloading: true })
-      })
+    const { torrentPostsActions: action, collection } = this.props
+
+    action.downloadTorrentPost(torrentPostId, collection)
   }
 
   render() {
@@ -69,18 +67,32 @@ class TorrentPosts extends Component {
                         body={post.body}
                         torrentSize={post.torrent_size}
                       />
-                      <Button
-                        variant='contained'
-                        color='primary'
-                        className={cl(style.button)}
-                        onClick={() => { this.handleDownload(post.id) }}
-                      >
-                        Send to Google Drive
-                        <CloudUploadIcon
-                          className={cl(style.rightIcon)}>
-                          send
-                        </CloudUploadIcon>
-                      </Button>
+                      <div>
+                        {
+                          post.downloading ? (
+                            <Button
+                              variant='contained'
+                              color='default'
+                              className={cl(style.button)}
+                            >
+                              Downloading...
+                            </Button>
+                          ) : (
+                            <Button
+                              variant='contained'
+                              color='primary'
+                              className={cl(style.button)}
+                              onClick={() => { this.handleDownload(post.id) }}
+                            >
+                              Send to Google Drive
+                              <CloudUploadIcon className={cl(style.rightIcon)}>
+                                send
+                              </CloudUploadIcon>
+                            </Button>
+                          )
+                        }
+                      </div>
+
                     </div>
                   ))}
                 </div>
