@@ -1,6 +1,7 @@
 import {
   GET_TORRENT_POSTS,
-  INIT_SEARCH_TORRENT_POSTS
+  INIT_SEARCH_TORRENT_POSTS,
+  DOWNLOAD_TORRENT_POST
 } from '../actions/actionTypes'
 
 const initialState = { collection: [], success: true }
@@ -13,6 +14,7 @@ const torrentPosts = (state = initialState, action) => {
       newState = { collection: [], success: false }
 
       return newState
+    case DOWNLOAD_TORRENT_POST:
     case GET_TORRENT_POSTS:
       newState = { collection: action.collection, success: action.success }
 
