@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container'
 import style from './style.module.css'
 import TorrentPost from '../TorrentPost/index'
 import Spinner from '../Spinner/index'
-import SearchField from '../SearchField/index'
+import InputField from '../InputField/index'
 import * as torrentPostsActions from '../../actions/torrentPostsActions'
 
 const mapStateToProps = (state) => {
@@ -34,11 +34,11 @@ class TorrentPosts extends Component {
     }
   }
 
-  handleSearch = (searchText) => {
+  handleSubmit = (inputText) => {
     const { torrentPostsActions: action } = this.props
 
     action.initSearchTorrentPosts()
-    action.searchTorrentPosts(searchText)
+    action.searchTorrentPosts(inputText)
   }
 
   handleDownload = (torrentPostId) => {
@@ -57,7 +57,7 @@ class TorrentPosts extends Component {
             (
               success && (
                 <div>
-                  <SearchField onSearch={this.handleSearch}/>
+                  <InputField onSubmit={this.handleSubmit} placeholder='Search'/>
                   {collection.map((post) => (
                     <div key={post.id}>
                       <TorrentPost

@@ -15,6 +15,7 @@ class Transfer extends Component {
       torrentPost: props.torrentPost,
       cloudEntities: props.cloudEntities,
       torrentEntityName: props.torrentEntity.name,
+      magnetLink: props.torrentEntity.magnet_link,
     }
   }
 
@@ -24,17 +25,25 @@ class Transfer extends Component {
       createdAt,
       torrentPost,
       cloudEntities,
+      torrentEntityName,
+      magnetLink,
     } = this.state
 
     return (
       <div className={cl(style.root)}>
-        <TorrentPost
-          id={torrentPost.id}
-          imageUrl={torrentPost.image_url}
-          title={torrentPost.title}
-          body={torrentPost.body}
-          torrentSize={torrentPost.torrent_size}
-        />
+        {
+          (
+            torrentPost && (
+              <TorrentPost
+                id={torrentPost.id}
+                imageUrl={torrentPost.image_url}
+                title={torrentPost.title}
+                body={torrentPost.body}
+                torrentSize={torrentPost.torrent_size}
+              />
+            )
+          ) || <div>{torrentEntityName || magnetLink}</div>
+        }
         {
           status === 'uploaded' ? (
             <Button

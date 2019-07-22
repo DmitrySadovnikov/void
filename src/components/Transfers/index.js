@@ -8,6 +8,7 @@ import style from './style.module.css'
 import Transfer from '../Transfer/index'
 import Spinner from '../Spinner/index'
 import * as transfersActions from '../../actions/transfersActions'
+import InputField from '../InputField/index'
 
 const mapStateToProps = (state) => {
   return {
@@ -25,13 +26,23 @@ const mapDispatchToProps = (dispatch) => {
 class Transfers extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      collection: [],
+      success: true,
+    }
   }
 
   componentWillMount() {
     const { transfersActions: action } = this.props
 
-    action.fetchTransfers()
+    action.getTransfers()
+  }
+
+  handleSubmit = (inputText) => {
+    const { transfersActions: action, collection } = this.props
+
+    action.initCreateTransfer()
+    action.createTransfer(inputText, collection)
   }
 
   render() {
@@ -44,6 +55,7 @@ class Transfers extends Component {
             (
               success && (
                 <div>
+                  <InputField onSubmit={this.handleSubmit} placeholder='Inter Magnet Link'/>
                   {collection.map((transfer) => (
                     <Transfer
                       key={transfer.id}

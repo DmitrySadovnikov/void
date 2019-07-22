@@ -8,31 +8,32 @@ import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import style from './style.module.css'
 
-class SearchField extends Component {
+class InputField extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      searchText: props.searchText || '',
-      onSearch: props.onSearch,
+      inputText: props.inputText || '',
+      onSubmit: props.onSubmit,
+      placeholder: props.placeholder,
     }
   }
 
   handleChange = (e) => {
     const { value } = e.target
 
-    this.setState(() => ({ searchText: value }))
+    this.setState(() => ({ inputText: value }))
   }
 
   handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      const { onSearch, searchText } = this.state
+      const { onSubmit, inputText } = this.state
 
-      onSearch(searchText)
+      onSubmit(inputText)
     }
   }
 
   render() {
-    const { searchText, onSearch } = this.props
+    const { inputText, onSubmit , placeholder } = this.props
 
     return (
       <Grid
@@ -46,15 +47,15 @@ class SearchField extends Component {
           <Paper className={cl(style.paper)}>
             <InputBase
               className={cl(style.input)}
-              placeholder='Search'
-              defaultValue={searchText}
+              placeholder={placeholder}
+              defaultValue={inputText}
               onChange={this.handleChange}
               onKeyDown={this.handleKeyDown}
             />
             <IconButton
               className={cl(style.iconButton)}
-              aria-label='Search'
-              onClick={() => { onSearch(searchText) }}
+              aria-label={placeholder}
+              onClick={() => { onSubmit(inputText) }}
             >
               <SearchIcon/>
             </IconButton>
@@ -65,8 +66,9 @@ class SearchField extends Component {
   }
 }
 
-SearchField.propTypes = {
-  onSearch: PropTypes.func,
+InputField.propTypes = {
+  onSubmit: PropTypes.func,
+  placeholder: PropTypes.string,
 }
 
-export default SearchField
+export default InputField
