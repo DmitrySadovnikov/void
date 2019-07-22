@@ -16,9 +16,9 @@ export const updateStateCollection = (type, collection) => {
   return { type, collection, success: true }
 }
 
-export const searchTorrentPosts = (searchText) => {
+export const searchTorrentPosts = (inputText) => {
   return (dispatch) => {
-    return fetch(`${SEARCH_TORRENT_POSTS_URL}?search=${searchText}`, {
+    return fetch(`${SEARCH_TORRENT_POSTS_URL}?search=${inputText}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
